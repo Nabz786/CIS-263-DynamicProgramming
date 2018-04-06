@@ -37,20 +37,43 @@ public class DynamicProgramming {
 	
 	
 	
-	private int DynamicSortin(){
+	private void DynamicSorting(){
 		int tempValue = 0;
+		int tempPreValue = 0;
 		int tempWeight = 0;
+		int tempPreWeight = 0;
 		for (int availableItem = 0; availableItem < weight.length; availableItem++){
 			for (int availableCapacity = 0; availableCapacity < capacity; availableCapacity++){
 				for( int i = 0; i < availableItem; i++){	
-					if(weight[i] < availableCapacity){
-						
-						tempValue = maxValue + value[i];
+					if(weight[i] <= availableCapacity){
+						if(tempPreValue == 0 && tempPreWeight == 0) {
+							tempWeight = availableCapacity - weight[i];
+							tempValue += value[i];
+							tempPreValue = tempValue;
+							tempPreWeight = tempWeight;
+							maxValue = tempValue;
+						}else if(tempPreValue != 0 && tempPreWeight != 0) {
+							if(weight[i] <= tempWeight) {
+								tempWeight = availableCapacity - weight[i];
+								tempValue += value[i];
+								tempPreValue = tempValue;
+								tempPreWeight = tempWeight;
+								maxValue = tempValue;
+							}else {
+								
+							}
+						}
 					}
 				}
+			System.out.print(maxValue + " ");
 			}
+			System.out.println("");
 		}
-		
-		return maxValue;
+	System.out.println("Process finish!");
+	}
+	
+	public void main(String args[]) {
+		System.out.println("Process finish!");
+		DynamicSorting();
 	}
 }
