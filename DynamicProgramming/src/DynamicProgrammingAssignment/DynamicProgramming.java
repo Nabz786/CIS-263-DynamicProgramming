@@ -7,13 +7,13 @@ package DynamicProgrammingAssignment;
  ******************************************************/
 
 public class DynamicProgramming {
-	int[] weight = new int [7];
-	int[] value = new int [7];
+	static int[] weight = new int [7];
+	static int[] value = new int [7];
 	
-	public int capacity = 50;
-	public int maxValue = 0;
+	public static int capacity = 50;
+
 	
-	private void inputWeight(){
+	public static void inputWeight(){
 		weight[0] = 0;
 		weight[1] = 15;
 		weight[2] = 25;
@@ -25,7 +25,7 @@ public class DynamicProgramming {
 	
 	
 	
-	private void inputValue(){
+	public static void inputValue(){
 		value[0] = 0;
 		value[1] = 100;
 		value[2] = 350;
@@ -37,13 +37,22 @@ public class DynamicProgramming {
 	
 	
 	
-	private void DynamicSorting(){
+	public static void DynamicSorting(){
 		int tempValue = 0;
 		int tempPreValue = 0;
 		int tempWeight = 0;
 		int tempPreWeight = 0;
-		for (int availableItem = 0; availableItem < weight.length; availableItem++){
-			for (int availableCapacity = 0; availableCapacity < capacity; availableCapacity++){
+		
+		System.out.print("   ");
+		for (int availableCapacity = 0; availableCapacity <= capacity; availableCapacity++){
+			System.out.print(availableCapacity + " ");
+		}
+		System.out.println("");
+
+		
+		for (int availableItem = 0; availableItem <= weight.length; availableItem++){
+			System.out.print(availableItem + "| ");
+			for (int availableCapacity = 0; availableCapacity <= capacity; availableCapacity++){
 				for( int i = 0; i < availableItem; i++){	
 					if(weight[i] <= availableCapacity){
 						if(tempPreValue == 0 && tempPreWeight == 0) {
@@ -51,29 +60,27 @@ public class DynamicProgramming {
 							tempValue += value[i];
 							tempPreValue = tempValue;
 							tempPreWeight = tempWeight;
-							maxValue = tempValue;
 						}else if(tempPreValue != 0 && tempPreWeight != 0) {
 							if(weight[i] <= tempWeight) {
 								tempWeight = availableCapacity - weight[i];
 								tempValue += value[i];
 								tempPreValue = tempValue;
 								tempPreWeight = tempWeight;
-								maxValue = tempValue;
-							}else {
-								
 							}
 						}
 					}
 				}
-			System.out.print(maxValue + " ");
+			System.out.print(tempValue + " ");
 			}
 			System.out.println("");
 		}
 	System.out.println("Process finish!");
 	}
 	
-	public void main(String args[]) {
-		System.out.println("Process finish!");
+	public static void main(String args[]) {
+		inputWeight();
+		inputValue();
+		System.out.println(weight[5]);
 		DynamicSorting();
 	}
 }
